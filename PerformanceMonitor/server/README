@@ -1,0 +1,3 @@
+performance monitor reporting machine load statistics over a simple HTTP server
+intended to be used to monitor status of headless servers from within NeosVR world
+format of data is optimized to be read with the simple GET request and LogiX processing supported by Neos
