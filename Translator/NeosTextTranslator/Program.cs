@@ -31,7 +31,22 @@ namespace NeosTextTranslator
         {
             var dm = NeosTranslateDataModel.Instance;
 
-            Console.WriteLine("Program starting, press Enter to shut down at any time.");
+            // Quick hack to allow supplying Azure region and subscription key without re-compiling the program, at the request of Ero on Discord
+            // Assumes region is first arg, key is 2nd arg
+            // This is NOT the a proper way to handle command line arguments! Need to fix this in the future.
+            if (args.Length == 2)
+            {
+                dm.AzureRegion = args[0];
+                dm.AzureSubscriptionKey = args[1];
+                Console.WriteLine("Using Azure region and key from command line");
+            }
+            else
+                Console.WriteLine("Using default Azure region and key. Run as NeosTextTranslator.exe [region] [key] to specify custom region and key.");
+            Console.WriteLine($"Using Azure region: {dm.AzureRegion}");
+            Console.WriteLine($"Using Azure key:    {dm.AzureSubscriptionKey}");
+            Console.WriteLine("");
+
+            Console.WriteLine("Server starting, press Enter to shut down at any time.");
             Console.WriteLine("");
 
             // start web server listening for Neos requests

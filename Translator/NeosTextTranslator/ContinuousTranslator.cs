@@ -18,7 +18,7 @@ namespace NeosTextTranslator
         public async Task StartRecognition(IEnumerable<string> targetLanguages)
         {            
             // create SpeechTranslationConfig using Azure settings defined in data model
-            var speechConfig = SpeechTranslationConfig.FromSubscription(NeosTranslateDataModel.AZURE_SUBSCRIPTION_KEY, NeosTranslateDataModel.AZURE_REGION);
+            var speechConfig = SpeechTranslationConfig.FromSubscription(NeosTranslateDataModel.Instance.AzureSubscriptionKey, NeosTranslateDataModel.Instance.AzureRegion);
 
             // configure input language from data model and translation target languages using list passed in to this function
             // Note: trying to translate to multiple languages causes a generic exception (with no name or details), so for now don't try to use the multiple-target-languages feature.

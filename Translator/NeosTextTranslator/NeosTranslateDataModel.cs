@@ -26,10 +26,10 @@ namespace NeosTextTranslator
         // Azure subscription key; you must input your own here or else voice recognition and translation will not work!
         // Info on creating an Azure account and setting up a speech resource can be found here: 
         // https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/get-started
-        public const string AZURE_SUBSCRIPTION_KEY = "key goes here";
+        public const string DEFAULT_AZURE_SUBSCRIPTION_KEY = "key goes here";
 
         // Region to use when connecting to Azure, goes along with subscription key
-        public const string AZURE_REGION = "westus";
+        public const string DEFAULT_AZURE_REGION = "westus";
 
         // langauge which translator will try to translate from
         // codes for supported languages: https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support
@@ -49,6 +49,10 @@ namespace NeosTextTranslator
         public static readonly TimeSpan MESSAGE_MAX_LIFETIME = TimeSpan.FromMinutes(5);
 
         #endregion
+
+        // allow region and key to be set without re-compiling the program
+        public string AzureRegion { get; set; } = DEFAULT_AZURE_REGION;
+        public string AzureSubscriptionKey { get; set; } = DEFAULT_AZURE_SUBSCRIPTION_KEY;
 
         public ContinuousTranslator Translator { get; } = new ContinuousTranslator();
         public NeosTranslateHttpListener HttpListener { get; } = new NeosTranslateHttpListener();
