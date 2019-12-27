@@ -26,7 +26,7 @@ namespace NeosTextTranslator
         // Azure subscription key; you must input your own here or else voice recognition and translation will not work!
         // Info on creating an Azure account and setting up a speech resource can be found here: 
         // https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/get-started
-        public const string AZURE_SUBSCRIPTION_KEY = "0a9abe311bce443dacc10879d155125a";
+        public const string AZURE_SUBSCRIPTION_KEY = "key goes here";
 
         // Region to use when connecting to Azure, goes along with subscription key
         public const string AZURE_REGION = "westus";
