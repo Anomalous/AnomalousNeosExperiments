@@ -21,6 +21,7 @@ namespace NeosTextTranslator
             var speechConfig = SpeechTranslationConfig.FromSubscription(NeosTranslateDataModel.AZURE_SUBSCRIPTION_KEY, NeosTranslateDataModel.AZURE_REGION);
 
             // configure input language from data model and translation target languages using list passed in to this function
+            // Note: trying to translate to multiple languages causes a generic exception (with no name or details), so for now don't try to use the multiple-target-languages feature.
             speechConfig.SpeechRecognitionLanguage = NeosTranslateDataModel.TRANSLATOR_INPUT_LANGUAGE;
             foreach(string lang in targetLanguages)
                 speechConfig.AddTargetLanguage(lang);

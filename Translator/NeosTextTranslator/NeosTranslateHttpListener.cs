@@ -102,6 +102,7 @@ namespace NeosTextTranslator
 
         private void addLanguage(HttpListenerContext context, string newLanguage)
         {
+            // Note: trying to translate to multiple languages causes a generic exception (with no name or details), so for now don't try to use the multiple-target-languages feature.
             Console.WriteLine($"Adding translation target {newLanguage}");
             NeosTranslateDataModel.Instance.AddTranslationTarget(newLanguage);
             sendText(context, "OK");
