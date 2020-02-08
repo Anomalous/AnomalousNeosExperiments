@@ -56,6 +56,7 @@ namespace NeosTextTranslator
 
         public ContinuousTranslator Translator { get; } = new ContinuousTranslator();
         public NeosTranslateHttpListener HttpListener { get; } = new NeosTranslateHttpListener();
+        public LocalSpeechRecognizer LocalRecognizer { get; } = new LocalSpeechRecognizer();
 
         #region Message Queue
 

@@ -48,6 +48,10 @@ namespace NeosTextTranslator
                         removeLanguage(context, request.QueryString["Language"]);
                     else if (request.RawUrl.StartsWith("/GetMessages"))
                         sendMessagesFromQueue(context);
+                    else if (request.RawUrl.StartsWith("/StartLocalRecognition"))
+                        NeosTranslateDataModel.Instance.LocalRecognizer.StartListening();
+                    else if (request.RawUrl.StartsWith("/StopLocalRecognition"))
+                        NeosTranslateDataModel.Instance.LocalRecognizer.StopListening();
                     else
                         sendText(context, $"Unknown Command: {request.RawUrl}");
                 }

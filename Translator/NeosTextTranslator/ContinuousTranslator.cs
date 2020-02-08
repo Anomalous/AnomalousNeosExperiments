@@ -38,7 +38,7 @@ namespace NeosTextTranslator
 
             // Starts continuous recognition. Uses StopContinuousRecognitionAsync() to stop recognition.
             string targetLanguagesStr = targetLanguages.Aggregate((a, b) => a + ' ' + b);
-            systemMessage($"Starting continuous translation from {NeosTranslateDataModel.TRANSLATOR_INPUT_LANGUAGE} to {targetLanguagesStr}");
+            SystemMessage($"Starting continuous translation from {NeosTranslateDataModel.TRANSLATOR_INPUT_LANGUAGE} to {targetLanguagesStr}");
             await recognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
         }
 
@@ -46,7 +46,7 @@ namespace NeosTextTranslator
         {
             if(recognizer != null)
             {
-                systemMessage("Stopping continuous translation");
+                SystemMessage("Stopping continuous translation");
                 await recognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
             }
         }
@@ -56,37 +56,37 @@ namespace NeosTextTranslator
             if (e.Result.Reason == ResultReason.TranslatedSpeech)
             {
                 // speech was successfully recognized and translated, output the recognized text and all translated text
-                textRecognized(e.Result.Text);
+                TextRecognized(e.Result.Text);
                 foreach (var element in e.Result.Translations)
-                    textTranslated(element.Key, element.Value);
+                    TextTranslated(element.Key, element.Value);
             }
             else if (e.Result.Reason == ResultReason.RecognizedSpeech)
             {
                 // speech was recognized but could not be translated
-                textRecognized(e.Result.Text);
-                systemMessage("Speech could not be translated.");
+                TextRecognized(e.Result.Text);
+                SystemMessage("Speech could not be translated.");
             }
             else if (e.Result.Reason == ResultReason.NoMatch)
             {
                 // speech could not be recognized
-                systemMessage("Speech could not be recognized.");
+                SystemMessage("Speech could not be recognized.");
             }
         }
 
         private void Recognizer_Canceled(object sender, TranslationRecognitionCanceledEventArgs e)
         {
-            systemMessage($"CANCELED: Reason={e.Reason}");
+            SystemMessage($"CANCELED: Reason={e.Reason}");
 
             if (e.Reason == CancellationReason.Error)
             {
-                systemMessage($"CANCELED: ErrorCode={e.ErrorCode}");
-                systemMessage($"CANCELED: ErrorDetails={e.ErrorDetails}");
-                systemMessage($"CANCELED: Did you update the subscription info?");
+                SystemMessage($"CANCELED: ErrorCode={e.ErrorCode}");
+                SystemMessage($"CANCELED: ErrorDetails={e.ErrorDetails}");
+                SystemMessage($"CANCELED: Did you update the subscription info?");
             }
         }
 
         // writes a message out the to console and also adds it to the Neos message queue as a system message
-        private void systemMessage(string message)
+        internal static void SystemMessage(string message)
         {
             Console.WriteLine(message);
             NeosTranslateDataModel.Instance.EnqueueSystemMessage(message);
@@ -94,7 +94,7 @@ namespace NeosTextTranslator
 
         // function called when text is recognized in the input language (successful speech recognitoin)
         // writes message to console and also adds it to the Neos message queue as recognized text
-        private void textRecognized(string text)
+        internal static void TextRecognized(string text)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {
@@ -105,7 +105,7 @@ namespace NeosTextTranslator
 
         // function called when text is translated into one of the target languages (successful text translation)
         // writes message to console and also adds it to the Neos message queue as translted text
-        private void textTranslated(string language, string text)
+        internal static void TextTranslated(string language, string text)
         {
             if (!string.IsNullOrWhiteSpace(text))
             {

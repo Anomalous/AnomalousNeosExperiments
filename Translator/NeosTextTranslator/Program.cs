@@ -56,10 +56,11 @@ namespace NeosTextTranslator
             // wait for Enter to be pressed
             Console.ReadLine();
 
-            // close down translator and web server
+            // close down translator and web server and local recognizer
             // may not be necessary since program is shutting down at this point anyway
-            await dm.Translator.StopRecognition();
             dm.HttpListener.StopListening();
+            dm.LocalRecognizer.StopListening();
+            await dm.Translator.StopRecognition();
         }
 
     }
